@@ -14,18 +14,22 @@ public class WordBreak {
      * * Put that word into list, and try to find word starting on next character
      * * If reach end of input string we know we have successful filled array, otherwise try next char up to end and move on
      */
-    private static final boolean wordBreakAux(int startChar, LinkedList<String> words, String s) {
+    private static final boolean wordBreakAux(int startChar, Set<Integer> visited, LinkedList<String> words, String s) {
         if (startChar == s.length()) {
             return true;
         }
 
+        visited.add(startChar);
 
         for (int i = startChar; i < s.length(); i++) {
             String word = s.substring(startChar, i + 1);
             if (WORDS.contains(word)) {
                 words.addLast(word);
 
-                boolean isResult = wordBreakAux(i + 1, words, s);
+                if (visited.contains(i + 1)) {
+                    continue;
+                }
+                boolean isResult = wordBreakAux(i + 1, visited, words, s);
 
                 if (isResult) {
                     return true;
@@ -41,7 +45,7 @@ public class WordBreak {
         LinkedList<String> words = new LinkedList<>();
         Set<Integer> visited = new HashSet<>();
 
-        if (wordBreakAux(0, words, s)) {
+        if (wordBreakAux(0, visited, words, s)) {
             return words;
         }
 
