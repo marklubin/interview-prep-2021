@@ -14,7 +14,7 @@ public class WordBreak {
      * * Put that word into list, and try to find word starting on next character
      * * If reach end of input string we know we have successful filled array, otherwise try next char up to end and move on
      */
-    private static final boolean wordBreakAux(int startChar, Set<Integer> visited, LinkedList<String> words, String s) {
+    private static boolean wordBreakAux(int startChar, Set<Integer> visited, LinkedList<String> words, String s) {
         if (startChar == s.length()) {
             return true;
         }
